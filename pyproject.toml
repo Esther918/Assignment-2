@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "DirectStiffness"
+version = "0.0.0"
+authors = [
+  { name="Esther Lin", email="lin1609@bu.edu" },
+]
+description = "Implementation of direct stiffness model"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "matplotlib==3.10.0",
+    "numpy==1.26.4",
+    "pytest==7.1.2",
+    "pytest-cov==3.0.0",
+    "scipy==1.12.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/Esther918/Assignment1.git"
+Issues = "https://github.com/Esther918/Assignment1.git"
