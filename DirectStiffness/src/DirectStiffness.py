@@ -90,7 +90,7 @@ class Function:
         num_dof = len(self.nodes) * 6
         K_global = np.zeros((num_dof, num_dof))
 
-        for element in self.elements:
+        for element in self.elements: # Still need to be fixed
             # Compute the local stiffness matrix
             k_local = element.local_elastic_stiffness_matrix()
 
@@ -98,8 +98,6 @@ class Function:
             if k_local.shape != (12, 12):
                 raise ValueError(f"Local stiffness matrix must be 12x12, but got {k_local.shape}")
 
-            # Compute the transformation matrix (assuming gamma is the rotation angle)
-            # Here, we assume that the element connects node_i and node_j
             node_i = self.nodes[0]  # First node of the element
             node_j = self.nodes[1]  # Second node of the element
             x1, y1, z1 = node_i.coordinates
