@@ -5,25 +5,22 @@ from DirectStiffness import Node, BeamElement3D, Function
 Frame Geometry
 Nodes:
     Node 0: (0, 0, 0) (Fixed Support)
-    Node 1: (0, 3, 0) (Beam-column connection)
-    Node 2: (4, 3, 0) (Free end of beam)
+    Node 1: (4, 0, 0) (Free end)
 Elements:
-    Column: Node 0 to Node 1
-    Beam: Node 1 to Node 2
+    E0: Node 0 to Node 1
 Properties:
     E = 200 GPa
     A = 0.01 m^2
     I = 1 * 10^-4 m^4
 Loading: 
-    10 kN at Node 2
+    10 kN at Node 1
 
 The goal is to determine the nodal displacements and reactions when a point load is applied at the free end.
 '''
 
 # Define Nodes (node_index, x, y, z)
-node0 = Node(0, 0, 0, 0)
-node1 = Node(1, 0, 3, 0)
-node2 = Node(2, 4, 3, 0)
+node0 = Node(0, 0, 0, 0)  # Fixed support
+node1 = Node(1, 4, 0, 0)  # Free end
 
 # Define properties
 E = 200e9  # N/m^2
@@ -34,24 +31,20 @@ Iz = 1e-4  # m^4
 J = 2e-4   # m^4
 
 # Define the beam elements
-nodes = {0: node0, 1: node1, 2: node2}  # Dictionary to store nodes
-column = BeamElement3D(0, 1, E, nu, A, Iy, Iz, J, nodes)  
-beam = BeamElement3D(1, 2, E, nu, A, Iy, Iz, J, nodes)    
+nodes = {0: node0, 1: node1}  # Dictionary to store nodes
+E0 = BeamElement3D(0, 1, E, nu, A, Iy, Iz, J, nodes)
 
 # Apply boundary conditions
-node0.set_boundary_condition([True, True, True, True, True, True])  # Fix all DOFs at Node 0
-node1.set_boundary_condition([False, False, False, False, False, False])  # Node 1 is free (no boundary conditions)
+node0.set_boundary_condition([True, True, True, True, True, True]) 
 
-# Apply a 10 kN force at Node 2
-node2.apply_force([0, -10000, 0, 0, 0, 0])  # [Fx, Fy, Fz, Mx, My, Mz]
+# Apply a 10 kN force at Node 1
+node1.apply_force([0, -10000, 0, 0, 0, 0])  # [Fx, Fy, Fz, Mx, My, Mz]
 
 # Create the structure and add nodes and elements
 structure = Function()
 structure.add_node(node0)
 structure.add_node(node1)
-structure.add_node(node2)
-structure.add_element(column)
-structure.add_element(beam)
+structure.add_element(E0)
 
 # Solve for displacements and reactions
 displacements, reactions = structure.solve()
