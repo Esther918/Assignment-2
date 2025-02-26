@@ -29,18 +29,40 @@ def test_set_boundary_condition_invalid_length():
     node = Node(1, 0, 0, 0)
     with pytest.raises(ValueError, match="Boundary condition vector must have exactly 6 elements."):
         node.set_boundary_condition([True, False])
-        
+
 # Test BeamElement3D
-def test_local_elastic_stiffness_matrix():
+def test_beam_element_initialization():
+    """Test BeamElement3D initialization and automatic length calculation."""
+    node1 = Node(0, 0, 0, 0)
+    node2 = Node(1, 1, 1, 1)
+    
     E = 210e9
     nu = 0.3
     A = 0.01
-    L = 2.0
     Iy = 1e-5
     Iz = 1e-5
     J = 1e-5
-    beam = BeamElement3D(E, nu, A, L, Iy, Iz, J)
+    
+    beam = BeamElement3D(node1, node2, E, nu, A, Iy, Iz, J)
+
+    expected_L = np.sqrt(1**2 + 1**2 + 1**2)
+    assert np.isclose(beam.L, expected_L)
+
+def test_local_elastic_stiffness_matrix():
+    """Test the local stiffness matrix shape and symmetry."""
+    node1 = Node(0, 0, 0, 0)
+    node2 = Node(1, 1, 0, 0)
+    
+    E = 210e9
+    nu = 0.3
+    A = 0.01
+    Iy = 1e-5
+    Iz = 1e-5
+    J = 1e-5
+
+    beam = BeamElement3D(node1, node2, E, nu, A, Iy, Iz, J)
     k_local = beam.local_elastic_stiffness_matrix()
+
     assert k_local.shape == (12, 12)  
     assert np.allclose(k_local, k_local.T)  
 
@@ -48,35 +70,40 @@ def test_rotation_matrix_3D():
     x1, y1, z1 = 0, 0, 0
     x2, y2, z2 = 1, 0, 0
     gamma = BeamElement3D.rotation_matrix_3D(x1, y1, z1, x2, y2, z2)
+    
     assert gamma.shape == (3, 3)  
     assert np.allclose(np.dot(gamma, gamma.T), np.eye(3))  
 
 def test_transformation_matrix_3D():
     gamma = np.eye(3)  
     Gamma = BeamElement3D.transformation_matrix_3D(gamma)
+    
     assert Gamma.shape == (12, 12)  
     assert np.allclose(Gamma[:3, :3], gamma) 
 
 # Test Function
 def test_assemble_global_stiffness():
+    """Test the global stiffness matrix assembly."""
     func = Function()
-    node1 = Node(1, 0, 0, 0)
-    node2 = Node(2, 1, 0, 0)
+    
+    node1 = Node(0, 0, 0, 0)
+    node2 = Node(1, 1, 0, 0)
     func.add_node(node1)
     func.add_node(node2)
-    
+
     E = 210e9
     nu = 0.3
     A = 0.01
-    L = 1.0
     Iy = 1e-5
     Iz = 1e-5
     J = 1e-5
-    beam = BeamElement3D(E, nu, A, L, Iy, Iz, J)
-    func.add_element(beam)
+
+    func.add_element(node1, node2, E, nu, A, Iy, Iz, J)
     
     K_global = func.assemble_global_stiffness()
-    assert K_global.shape == (12, 12)
+
+    expected_size = len(func.nodes) * 6
+    assert K_global.shape == (expected_size, expected_size)
 
 def test_apply_boundary_conditions():
     """Test the apply_boundary_conditions method."""
