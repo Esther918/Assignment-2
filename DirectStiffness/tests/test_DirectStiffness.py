@@ -119,3 +119,4 @@ def test_apply_boundary_conditions():
     
     assert np.allclose(K_mod[:3, :3], np.eye(3)) 
     assert np.allclose(F_mod[:3], [0, 0, 0])  
+
