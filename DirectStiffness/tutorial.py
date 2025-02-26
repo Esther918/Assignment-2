@@ -8,8 +8,8 @@ Nodes:
     Node 1: (0, 3, 0) (Beam-column connection)
     Node 2: (4, 3, 0) (Free end of beam)
 Elements:
-    Column: Node 0 → Node 1
-    Beam: Node 1 → Node 2
+    Column: Node 0 to Node 1
+    Beam: Node 1 to Node 2
 Properties:
     E = 200 GPa
     A = 0.01 m^2
