@@ -20,17 +20,21 @@ Iz = b * h**3 / 12
 J = 0.02861
 
 # Define the beam element
-nodes = {0: node0, 1: node1}  
-beam = BeamElement3D(0, 1, E, nu, A, Iy, Iz, J, nodes)  
+nodes = {0: node0, 1: node1, 2: node2}  
+E0 = BeamElement3D(0, 1, E, nu, A, Iy, Iz, J, nodes) 
+E1 = BeamElement3D(1, 2, E, nu, A, Iy, Iz, J, nodes) 
 
-# Fix Node 0 and Node 2
+# Fix Node 0 and Node 1
 node0.set_boundary_condition([True, True, True, True, True, True]) # Fixed
 node2.set_boundary_condition([True, True, True, False, False, False]) # Pinned
 
 structure = Function()
 structure.add_node(node0)
 structure.add_node(node1)
-structure.add_element(beam)
+structure.add_node(node2)
+structure.add_element(E0)
+structure.add_element(E1)
+
 displacements, reactions = structure.solve()
 
 # Displacements and reaction forces output
