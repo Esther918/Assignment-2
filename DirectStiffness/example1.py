@@ -6,7 +6,7 @@ node0 = Node(0, 0, 0, 10.0)
 node1 = Node(1, 15.0, 0, 10.0)
 node2 = Node(2, 15.0, 0, 0)
 
-# Apply a 10 kN force at Node 2
+# Apply a 10 kN force at Node 1
 node1.apply_force([0.1, 0.05, -0.07, 0.05, -0.1, 0.25])  # [Fx, Fy, Fz, Mx, My, Mz]
 
 # Define properties
@@ -23,9 +23,9 @@ J = 0.02861
 nodes = {0: node0, 1: node1}  
 beam = BeamElement3D(0, 1, E, nu, A, Iy, Iz, J, nodes)  
 
-# Fix Node 0 and Node 1
-node0.set_boundary_condition([True, True, False, True, True, True])
-node1.set_boundary_condition([False, True, True, True, True, True])
+# Fix Node 0 and Node 2
+node0.set_boundary_condition([True, True, True, True, True, True]) # Fixed
+node2.set_boundary_condition([True, True, True, False, False, False]) # Pinned
 
 structure = Function()
 structure.add_node(node0)
