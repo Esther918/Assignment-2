@@ -42,9 +42,9 @@ def test_beam_element_initialization():
     Iy = 1e-5
     Iz = 1e-5
     J = 1e-5
+    nodes = {0: node1, 1: node2} 
+    beam = BeamElement3D(0, 1, E, nu, A, Iy, Iz, J, nodes)
     
-    beam = BeamElement3D(node1, node2, E, nu, A, Iy, Iz, J)
-
     expected_L = np.sqrt(1**2 + 1**2 + 1**2)
     assert np.isclose(beam.L, expected_L)
 
@@ -60,7 +60,8 @@ def test_local_elastic_stiffness_matrix():
     Iz = 1e-5
     J = 1e-5
 
-    beam = BeamElement3D(node1, node2, E, nu, A, Iy, Iz, J)
+    nodes = {0: node1, 1: node2}
+    beam = BeamElement3D(0, 1, E, nu, A, Iy, Iz, J, nodes)
     k_local = beam.local_elastic_stiffness_matrix()
 
     assert k_local.shape == (12, 12)  
@@ -97,8 +98,10 @@ def test_assemble_global_stiffness():
     Iy = 1e-5
     Iz = 1e-5
     J = 1e-5
-
-    func.add_element(node1, node2, E, nu, A, Iy, Iz, J)
+    
+    nodes = {0: node1, 1: node2}
+    beam = BeamElement3D(0, 1, E, nu, A, Iy, Iz, J, nodes)
+    func.add_element(beam)
     
     K_global = func.assemble_global_stiffness()
 
@@ -119,4 +122,3 @@ def test_apply_boundary_conditions():
     
     assert np.allclose(K_mod[:3, :3], np.eye(3)) 
     assert np.allclose(F_mod[:3], [0, 0, 0])  
-
