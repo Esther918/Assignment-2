@@ -35,8 +35,8 @@ J = 2e-4   # m^4
 
 # Define the beam elements
 nodes = {0: node0, 1: node1, 2: node2}  # Dictionary to store nodes
-column = BeamElement3D(0, 1, E, nu, A, Iy, Iz, J, nodes)  # Column: Node 0 → Node 1
-beam = BeamElement3D(1, 2, E, nu, A, Iy, Iz, J, nodes)    # Beam: Node 1 → Node 2
+column = BeamElement3D(0, 1, E, nu, A, Iy, Iz, J, nodes)  
+beam = BeamElement3D(1, 2, E, nu, A, Iy, Iz, J, nodes)    
 
 # Apply boundary conditions
 node0.set_boundary_condition([True, True, True, True, True, True])  # Fix all DOFs at Node 0
