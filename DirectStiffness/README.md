@@ -30,7 +30,8 @@ To run the test:
 ```bash
 pytest -v
 ```
-Run example in tutorial:
+Run example 1 & 2:
 ```bash
-python tutorial.py
+python example1.py
+python example2.py
 ```
