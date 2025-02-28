@@ -22,7 +22,7 @@ pip install -e .
 ```
 Note: make sure you are in the project root directory and that pyproject.toml exists.
 
-Test that the code is working with pytest:
+Test that the code is working with pytest (pytest is not ready yet, will be fixed later):
 ```bash
 pytest --cov=DirectStiffness tests/
 ```
