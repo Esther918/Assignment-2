@@ -22,7 +22,7 @@ pip install -e .
 ```
 Note: make sure you are in the project root directory and that pyproject.toml exists.
 
-Test that the code is working with pytest (pytest is not ready yet, will be fixed later):
+Test that the code is working with pytest (pytest is not ready yet and will be fixed later, please skip to Run example):
 ```bash
 pytest --cov=DirectStiffness tests/
 ```
@@ -30,8 +30,7 @@ To run the test:
 ```bash
 pytest -v
 ```
-Run example 1 & 2:
+Run example (this example is from example2):
 ```bash
-python example1.py
-python example2.py
+python example_postprocess.py
 ```
