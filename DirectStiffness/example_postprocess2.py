@@ -50,11 +50,11 @@ structure.nodes[6].apply_force([Fx, Fy, Fz, 0, 0, 0])
 
 # Displacements and reaction forces output
 displacements, reactions = structure.solve()
-print("Displacements:")
+print("Displacements and Rotations:")
 for i, d in enumerate(displacements): 
     print(f"Node {i}: {d}")
     
-print("\nReaction Forces and Rotations:")
+print("\nReaction Forces and Moments:")
 for node_id, node in structure.nodes.items():
     print(f"Node {node_id}: {reactions[node_id]}")
     
