@@ -94,4 +94,4 @@ print(f"Critical Load Factor: {critical_load_factor}")
 print("Buckling Mode:\n", buckling_mode)
 
 # Plot
-plot_deformed_shape(structure, displacements, scale=10)
+plot_deformed_shape(structure, displacements, scale=1000)
