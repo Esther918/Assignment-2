@@ -50,11 +50,11 @@ structure.nodes[6].apply_force([Fx, Fy, Fz, 0, 0, 0])
 
 # Displacements and reaction forces output
 displacements, reactions = structure.solve()
-print("Displacements and Rotations:")
+print("Displacements:")
 for i, d in enumerate(displacements): 
     print(f"Node {i}: {d}")
     
-print("\nReaction Forces and Moments:")
+print("\nReaction Forces and Rotations:")
 for node_id, node in structure.nodes.items():
     print(f"Node {node_id}: {reactions[node_id]}")
     
@@ -63,7 +63,7 @@ for node_id, node in structure.nodes.items():
 ecl = ElasticCriticalLoad(structure)
 critical_load_factor, buckling_mode = ecl.elastic_critical_load_analysis(displacements)
 print(f"Critical Load Factor: {critical_load_factor}")
-print("Buckling Mode:\n", buckling_mode)
+# print("Buckling Mode:\n", buckling_mode)
 
-# Plot
-plot_deformed_shape(structure, displacements, scale=10)
+# # Plot
+# plot_deformed_shape(structure, displacements, scale=10)

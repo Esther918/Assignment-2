@@ -5,12 +5,12 @@ import numpy as np
 
 structure = DirectStiffness()
 x0, y0, z0 = 0, 0, 0
-L1 = 11
-L2 = 23
-L3 = 15
-L4 = 13
+L1 = 15
+L2 = 30
+L3 = 14
+L4 = 16
 
-# Define nodes
+# Define nodes (node_index, x, y, z)
 structure.add_node(Node(0, x0, y0, z0))  
 structure.add_node(Node(1, x0 + L1, y0, z0))  
 structure.add_node(Node(2, x0 + L1, y0 + L2, z0))  
@@ -24,7 +24,7 @@ structure.add_node(Node(9, x0 + L1, y0, z0 + L3 + L4))
 structure.add_node(Node(10, x0 + L1, y0 + L2, z0 + L3 + L4))
 structure.add_node(Node(11, x0, y0 + L2, z0 + L3 + L4))  
 
-# Set boundary conditions
+# Set boundary conditions (True = fixed)
 structure.nodes[0].set_boundary_condition([True, True, True, True, True, True])  
 structure.nodes[1].set_boundary_condition([True, True, True, True, True, True])  
 structure.nodes[2].set_boundary_condition([True, True, True, True, True, True])  
@@ -39,6 +39,7 @@ Iy_a = np.pi * r ** 4 / 4
 Iz_a = np.pi * r ** 4 / 4
 Ip_a = np.pi * r ** 4 / 2
 J_a = np.pi * r ** 4 / 2 
+localz_a = None
 # Define properties (B element)
 E_b = 50000
 nu_b = 0.3
@@ -49,8 +50,10 @@ Iy_b = h * b**3 / 12
 Iz_b = b * h**3 / 12
 Ip_b = b * h / 12 * (b**2 + h**2)
 J_b = 0.028610026041666667 
+localz_b = np. asarray([0, 0, 1])
 
-# Define the beam elements with dynamic local_z
+# Define the beam element (element name, node_i, node_j, E, nu, A, Iy, Iz, J, nodes):
+# A element type
 structure.add_element(BeamElement3D(0, 0, 4, E_a, nu_a, A_a, Iy_a, Iz_a, J_a, structure.nodes))
 structure.add_element(BeamElement3D(1, 1, 5, E_a, nu_a, A_a, Iy_a, Iz_a, J_a, structure.nodes))
 structure.add_element(BeamElement3D(2, 2, 6, E_a, nu_a, A_a, Iy_a, Iz_a, J_a, structure.nodes))
@@ -59,6 +62,7 @@ structure.add_element(BeamElement3D(4, 4, 8, E_a, nu_a, A_a, Iy_a, Iz_a, J_a, st
 structure.add_element(BeamElement3D(5, 5, 9, E_a, nu_a, A_a, Iy_a, Iz_a, J_a, structure.nodes))
 structure.add_element(BeamElement3D(6, 6, 10, E_a, nu_a, A_a, Iy_a, Iz_a, J_a, structure.nodes))
 structure.add_element(BeamElement3D(7, 7, 11, E_a, nu_a, A_a, Iy_a, Iz_a, J_a, structure.nodes))
+# B element type
 structure.add_element(BeamElement3D(8, 4, 5, E_b, nu_b, A_b, Iy_b, Iz_b, J_b, structure.nodes))
 structure.add_element(BeamElement3D(9, 5, 6, E_b, nu_b, A_b, Iy_b, Iz_b, J_b, structure.nodes))
 structure.add_element(BeamElement3D(10, 6, 7, E_b, nu_b, A_b, Iy_b, Iz_b, J_b, structure.nodes))
@@ -92,4 +96,4 @@ print(f"Critical Load Factor: {critical_load_factor}")
 print("Buckling Mode:\n", buckling_mode)
 
 # Plot
-plot_deformed_shape(structure, np.array([node.geo_disp for node in structure.nodes.values()]), scale=10)
+plot_deformed_shape(structure, displacements, scale=10)
