@@ -30,9 +30,17 @@ To run the test:
 ```bash
 pytest -v
 ```
-Run code review example:
+Run code review examples:
+```bash
+python example1.py
+python example2.py
+```
+Run graded review examples:
 ```bash
 python example_postprocess1.py
 python example_postprocess2.py
 python example_postprocess3.py
+python example_sectry1.py
+python example_sectry2.py
+python example_sectry3.py
 ```
