@@ -46,4 +46,6 @@ python example_sectry1.py
 python example_sectry2.py
 python example_sectry3.py
 ```
+Note: example_sectry#.py are files of examples for second-try graded review.
+
 The figure file name : structure_deformed_shape.png
