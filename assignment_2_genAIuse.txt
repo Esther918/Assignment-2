@@ -1,0 +1,4 @@
+ChatGPT and Deepseek were used in this assigmnent. 
+I used ChatGPT to generate the first version of directstiffness solver.
+I used Deepseek to clarify how to use scipy and how to create plots with matplotlib.pyplot.
+Deepseek helped with debugging my solvers and tests.
