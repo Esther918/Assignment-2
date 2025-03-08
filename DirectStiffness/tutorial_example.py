@@ -2,7 +2,11 @@ from DirectStiffness import Node, BeamElement3D, DirectStiffness
 from ElasticCriticalLoad import ElasticCriticalLoad
 from PostProcess import plot_deformed_shape
 import numpy as np
-
+'''
+The Direct Stiffness Method is used to analyze the structural behavior of a 3D frame.
+Please follow instructions on README to set up and run the code.
+This tutorial provides an example of how to set up examples for the solver.
+'''
 structure = DirectStiffness()
 # Define nodes (node_index, x, y, z)
 structure.add_node(Node(0, 0, 0, 0))  
