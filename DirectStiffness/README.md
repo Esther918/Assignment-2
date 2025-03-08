@@ -32,8 +32,10 @@ pytest -v
 ```
 Run code review examples:
 ```bash
-python example1.py
-python example2.py
+python example1_1.py
+python example1_2.py
+python example2_1.py
+python example2_2.py
 ```
 Run graded review examples:
 ```bash
@@ -44,3 +46,4 @@ python example_sectry1.py
 python example_sectry2.py
 python example_sectry3.py
 ```
+The figure file name : structure_deformed_shape.png
