@@ -1,0 +1,12 @@
+{
+  "tests/test_DirectStiffness.py::test_apply_force_invalid_length": true,
+  "tests/test_DirectStiffness.py::test_set_boundary_condition_invalid_length": true,
+  "tests/test_DirectStiffness.py::test_local_elastic_stiffness_matrix": true,
+  "tests/test_DirectStiffness.py::test_rotation_matrix_3D": true,
+  "tests/test_DirectStiffness.py::test_transformation_matrix_3D": true,
+  "tests/test_DirectStiffness.py::test_assemble_global_stiffness": true,
+  "tests/test_DirectStiffness.py::test_apply_boundary_conditions": true,
+  "tests/test_PostProcess.py::test_plot_deformed_shape": true,
+  "tests/test_ElasticCriticalLoad.py::test_elastic_critical_load_analysis": true,
+  "tests/test_PostProcess.py::test_compute_interpolated_deformation": true
+}
