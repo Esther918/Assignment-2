@@ -26,6 +26,10 @@ Test that the code is working with pytest:
 ```bash
 pytest --cov=DirectStiffness tests/
 ```
+Code coverage report
+```
+pytest -v --cov=DirectStiffness --cov-report term-missing
+```
 To run the test:
 ```bash
 pytest -v
